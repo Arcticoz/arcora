@@ -94,7 +94,7 @@ export default function WalletCard() {
 
               ??
 
-              "Wallet belum terhubung"
+              "Wallet is not connected.."
 
             }
 
