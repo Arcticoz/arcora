@@ -116,7 +116,7 @@ export default function Dashboard() {
             mt-3
             "
           >
-            All-In-One Web3 Dashboard
+            Swap Anytime, Mint Anywhere.
           </p>
 
         </div>
