@@ -9,6 +9,7 @@ import SwapCard from "@/components/SwapCard";
 import EURCBalance from "@/components/EURCBalance";
 import SwapHistory from "@/components/SwapHistory";
 import DashboardStats from "@/components/DashboardStats";
+import Footer from "@/components/Footer";
 
 export default function Home() {
 
@@ -169,6 +170,8 @@ export default function Home() {
 
               <SwapHistory />
 
+              <Footer />
+              
             </section>
 
           </div>
