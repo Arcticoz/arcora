@@ -6,36 +6,176 @@ import NFTCard from "@/components/NFTCard";
 import NFTInfo from "@/components/NFTInfo";
 import MyNFTs from "@/components/MyNFTs";
 import SwapCard from "@/components/SwapCard";
+import EURCBalance from "@/components/EURCBalance";
+import SwapHistory from "@/components/SwapHistory";
+import DashboardStats from "@/components/DashboardStats";
+
 export default function Home() {
 
   return (
 
-    <main>
+    <main
+      className="
+      min-h-screen
+      text-white
+      "
+    >
 
-      <h1>
+      <ConnectWallet />
 
-        ARCora
+      <div
+        className="
+        max-w-[1800px]
+        mx-auto
+        px-8
+        xl:px-16
+        py-10
+        space-y-12
+        "
+      >
 
-      </h1>
+        {/* Hero */}
 
-      <ConnectWallet/>
+        <section
+          className="
+          bg-zinc-900/70
+          border
+          border-white/10
+          rounded-[40px]
+          p-10
+          backdrop-blur-xl
+          shadow-2xl
+          "
+        >
 
-      <hr/>
+          <h1
+            className="
+            text-6xl
+            xl:text-7xl
+            font-black
+            bg-linear-to-r
+            from-purple-400
+            via-pink-500
+            to-blue-500
+            text-transparent
+            bg-clip-text
+            "
+          >
+            Own. Swap. Explore.
+          </h1>
 
-      <Dashboard/>
+          <p
+            className="
+            text-zinc-400
+            text-xl
+            mt-5
+            "
+          >
+            Swap • NFTs • Portfolio • Arc Testnet
+          </p>
 
-      <hr/>
+        </section>
 
-      <WalletCard/>
 
-<BalanceCard/>
+        {/* Dashboard */}
 
-<NFTInfo/>
+        <section
+          className="
+          space-y-6
+          "
+        >
 
-<NFTCard/>
+          <Dashboard />
 
-<MyNFTs/>
-<SwapCard/>
+          <DashboardStats />
+
+        </section>
+
+
+        {/* Wallet + Balance */}
+
+        <section
+          className="
+          grid
+          xl:grid-cols-2
+          gap-8
+          "
+        >
+
+          <WalletCard />
+
+          <BalanceCard />
+
+        </section>
+
+
+        {/* Main */}
+
+        <section
+          className="
+          grid
+          2xl:grid-cols-2
+          gap-10
+          items-start
+          "
+        >
+
+          {/* Left */}
+
+          <div
+            className="
+            space-y-10
+            "
+          >
+
+            <section
+              className="
+              grid
+              xl:grid-cols-2
+              gap-8
+              "
+            >
+
+              <NFTInfo />
+
+              <NFTCard />
+
+            </section>
+
+            <MyNFTs />
+
+          </div>
+
+
+          {/* Right */}
+
+          <div
+            className="
+            space-y-10
+            "
+          >
+
+            <SwapCard />
+
+            <section
+              className="
+              grid
+              xl:grid-cols-2
+              gap-8
+              "
+            >
+
+              <EURCBalance />
+
+              <SwapHistory />
+
+            </section>
+
+          </div>
+
+        </section>
+
+      </div>
 
     </main>
 

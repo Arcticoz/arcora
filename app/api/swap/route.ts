@@ -1,45 +1,115 @@
-import { AppKit } from "@circle-fin/app-kit";
-import { createViemAdapterFromPrivateKey }
-from "@circle-fin/adapter-viem-v2";
+import { createSwapKitContext, swap } from "@circle-fin/swap-kit";
+import { createViemAdapterFromPrivateKey } from "@circle-fin/adapter-viem-v2";
 
-export async function POST(){
+export async function POST(
+  request: Request
+) {
+  try {
+    const body =
+  await request.json();
 
-const kit=new AppKit();
+const amount =
+  body.amount;
+    console.log("KIT_KEY =", process.env.KIT_KEY);
+    const adapter =
+      createViemAdapterFromPrivateKey({
+        privateKey: process.env.PRIVATE_KEY!
+      });
 
-const adapter=
-createViemAdapterFromPrivateKey({
+    const context =
+      createSwapKitContext();
+console.log("Testing internet...");
+const tokenIn =
+body.tokenIn;
 
-privateKey:
-process.env.PRIVATE_KEY!
+const tokenOut =
+body.tokenOut;
+const response = await fetch(
+  "https://api.circle.com"
+);
 
-});
+console.log(
+  "Circle status:",
+  response.status
+);
+console.log(
+"tokenIn =",
+tokenIn
+);
 
-const result=
-await kit.swap({
+console.log(
+"tokenOut =",
+tokenOut
+);
 
-from:{
+console.log(
+"amountIn =",
+amount
+);
+const result = await swap(
+  context,
+  {
+    from: {
+      adapter,
+      chain: "Arc_Testnet"
+    },
 
-adapter,
+    tokenIn,
 
-chain:"Arc_Testnet"
+    tokenOut,
 
-},
+    amountIn: amount,
 
-tokenIn:"USDC",
+    config: {
+      kitKey: process.env.KIT_KEY!
+    }
+  }
+);
+    return Response.json({
+      success: true,
+      result
+    });
+    
 
-tokenOut:"EURC",
+  } catch (error: any) {
 
-amountIn:"1.00",
+  console.log("================================");
+  console.log("NAME:");
+  console.log(error?.name);
 
-config:{
+  console.log("MESSAGE:");
+  console.log(error?.message);
 
-kitKey:
-process.env.KIT_KEY!
+  console.log("CODE:");
+  console.log(error?.code);
+
+  console.log("TYPE:");
+  console.log(error?.type);
+
+  console.log("CAUSE:");
+  console.dir(
+    error?.cause,
+    {
+      depth: null
+    }
+  );
+
+  console.log("FULL ERROR:");
+  console.dir(
+    error,
+    {
+      depth: null
+    }
+  );
+
+  return Response.json(
+    {
+      success: false
+    },
+    {
+      status: 500
+    }
+  );
 
 }
-
-});
-
-return Response.json(result);
-
 }

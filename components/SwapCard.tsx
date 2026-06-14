@@ -1,45 +1,300 @@
 "use client";
 
-export default function SwapCard(){
+import { useState } from "react";
 
-async function swap(){
+export default function SwapCard() {
 
-await fetch(
+  const [amount, setAmount] = useState("1");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [tokenIn, setTokenIn] = useState("USDC");
 
-"/api/swap",
+  const tokenOut =
+    tokenIn === "USDC"
+      ? "EURC"
+      : "USDC";
 
-{
+  async function swap() {
 
-method:"POST"
+    try {
 
-}
+      setLoading(true);
+      setMessage("");
 
-);
+      const response =
+        await fetch(
+          "/api/swap",
+          {
+            method: "POST",
 
-}
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
 
-return(
+            body:
+              JSON.stringify({
+                amount,
+                tokenIn,
+                tokenOut
+              })
 
-<div className="border rounded-xl p-6">
+          }
+        );
 
-<h2 className="font-bold text-xl">
+      const data =
+        await response.json();
 
-Swap
+      if (data.success) {
 
-</h2>
+        const history =
 
-<button
+          JSON.parse(
 
-onClick={swap}
+            localStorage.getItem(
+              "swapHistory"
+            )
 
->
+            ?? "[]"
 
-Swap USDC → EURC
+          );
 
-</button>
+        history.unshift(
+          `${amount} ${tokenIn} -> ${tokenOut}`
+        );
 
-</div>
+        localStorage.setItem(
+          "swapHistory",
+          JSON.stringify(history)
+        );
 
-);
+        setMessage(
+          "Swap Successful ✓"
+        );
+
+      }
+
+      else {
+
+        setMessage(
+          "Swap Failed"
+        );
+
+      }
+
+    }
+
+    catch {
+
+      setMessage(
+        "An error occurred"
+      );
+
+    }
+
+    finally {
+
+      setLoading(false);
+
+    }
+
+  }
+
+  return (
+
+    <section
+      className="
+      bg-zinc-900/70
+      backdrop-blur-xl
+      border
+      border-white/10
+      rounded-4xl
+      p-8
+      shadow-2xl
+      "
+    >
+
+      <h2
+        className="
+        text-3xl
+        font-bold
+        mb-8
+        "
+      >
+        Swap
+      </h2>
+
+      <div
+        className="
+        bg-zinc-800
+        rounded-3xl
+        p-6
+        "
+      >
+
+        <p
+          className="
+          text-zinc-500
+          text-sm
+          "
+        >
+          You Pay
+        </p>
+
+        <div
+          className="
+          flex
+          items-center
+          justify-between
+          mt-4
+          "
+        >
+
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) =>
+              setAmount(
+                e.target.value
+              )
+            }
+            className="
+            bg-transparent
+            outline-none
+            text-4xl
+            font-bold
+            w-40
+            "
+          />
+
+          <select
+            value={tokenIn}
+            onChange={(e) =>
+              setTokenIn(
+                e.target.value
+              )
+            }
+            className="
+            bg-zinc-700
+            rounded-full
+            px-5
+            py-3
+            "
+          >
+
+            <option>
+              USDC
+            </option>
+
+            <option>
+              EURC
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+      <div
+        className="
+        flex
+        justify-center
+        my-5
+        text-3xl
+        "
+      >
+        ↓
+      </div>
+
+      <div
+        className="
+        bg-zinc-800
+        rounded-3xl
+        p-6
+        "
+      >
+
+        <p
+          className="
+          text-zinc-500
+          text-sm
+          "
+        >
+          You Receive
+        </p>
+
+        <div
+          className="
+          text-4xl
+          font-black
+          mt-4
+          "
+        >
+          {tokenOut}
+        </div>
+
+      </div>
+
+      <button
+
+        onClick={swap}
+
+        disabled={loading}
+
+        className="
+        w-full
+        mt-8
+        py-4
+        rounded-full
+        text-lg
+        font-bold
+        bg-linear-to-r
+        from-purple-600
+        via-pink-500
+        to-blue-500
+        hover:scale-[1.02]
+        duration-300
+        "
+
+      >
+
+        {
+
+          loading
+
+            ?
+
+            "Swapping..."
+
+            :
+
+            "Swap"
+
+        }
+
+      </button>
+
+      {
+
+        message &&
+
+        <div
+          className="
+          mt-5
+          text-center
+          text-green-400
+          "
+        >
+
+          {message}
+
+        </div>
+
+      }
+
+    </section>
+
+  );
 
 }

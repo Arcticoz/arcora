@@ -1,0 +1,19 @@
+{
+  "name": "ARCora Early Access Badge #668",
+  "description": "Exclusive badge for early ARCora users.",
+  "image": "https://gateway.pinata.cloud/ipfs/bafybeidn35bgjvbbss7vwcu6hfwibumgvkd46uonkiq53eqwbs4hmcdo24",
+  "attributes": [
+    {
+      "trait_type": "Tier",
+      "value": "Early Access"
+    },
+    {
+      "trait_type": "Collection",
+      "value": "Genesis"
+    },
+    {
+      "trait_type": "Edition",
+      "value": 668
+    }
+  ]
+}
