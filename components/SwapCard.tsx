@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function SwapCard() {
 
   const [amount, setAmount] = useState("1");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
   const [tokenIn, setTokenIn] = useState("USDC");
 
   const tokenOut =
@@ -19,7 +19,6 @@ export default function SwapCard() {
     try {
 
       setLoading(true);
-      setMessage("");
 
       const response =
         await fetch(
@@ -32,13 +31,11 @@ export default function SwapCard() {
                 "application/json"
             },
 
-            body:
-              JSON.stringify({
-                amount,
-                tokenIn,
-                tokenOut
-              })
-
+          body: JSON.stringify({
+          amount,
+          tokenIn: "EURC",
+          tokenOut: "USDC"
+})
           }
         );
 
@@ -58,37 +55,33 @@ export default function SwapCard() {
             ?? "[]"
 
           );
+          console.log(data.result);
+history.unshift({
+  amount,
+  tokenIn,
+  tokenOut,
+  date: new Date().toLocaleString(),
+  explorerUrl: data.result.explorerUrl,
+  txHash: data.result.txHash
+});
 
-        history.unshift(
-          `${amount} ${tokenIn} -> ${tokenOut}`
-        );
+localStorage.setItem(
+  "swapHistory",
+  JSON.stringify(history)
+);
 
-        localStorage.setItem(
-          "swapHistory",
-          JSON.stringify(history)
-        );
-
-        setMessage(
-          "Swap Successful ✓"
-        );
+      toast.success(
+        `${amount} ${tokenIn} → ${tokenOut}`
+      );
 
       }
 
       else {
 
-        setMessage(
-          "Swap Failed"
-        );
-
-      }
-
-    }
-
-    catch {
-
-      setMessage(
+      toast.error(
         "An error occurred"
       );
+      }
 
     }
 
@@ -274,24 +267,6 @@ export default function SwapCard() {
         }
 
       </button>
-
-      {
-
-        message &&
-
-        <div
-          className="
-          mt-5
-          text-center
-          text-green-400
-          "
-        >
-
-          {message}
-
-        </div>
-
-      }
 
     </section>
 

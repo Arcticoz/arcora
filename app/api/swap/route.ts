@@ -1,115 +1,230 @@
-import { createSwapKitContext, swap } from "@circle-fin/swap-kit";
-import { createViemAdapterFromPrivateKey } from "@circle-fin/adapter-viem-v2";
+import {
+  createSwapKitContext,
+  swap
+} from "@circle-fin/swap-kit";
 
-export async function POST(
-  request: Request
-) {
+import {
+  createViemAdapterFromPrivateKey
+} from "@circle-fin/adapter-viem-v2";
+
+export async function POST(request: Request) {
+
   try {
-    const body =
-  await request.json();
 
-const amount =
-  body.amount;
-    console.log("KIT_KEY =", process.env.KIT_KEY);
+    const body = await request.json();
+
+    const amount = body.amount;
+    const tokenIn = body.tokenIn;
+    const tokenOut = body.tokenOut;
+
+    if (
+      amount === undefined ||
+      tokenIn === undefined ||
+      tokenOut === undefined
+    ) {
+
+      return Response.json(
+        {
+          success: false,
+          error:
+            "amount, tokenIn, dan tokenOut wajib diisi"
+        },
+        {
+          status: 400
+        }
+      );
+
+    }
+
+    if (!process.env.PRIVATE_KEY) {
+
+      throw new Error(
+        "PRIVATE_KEY tidak ditemukan"
+      );
+
+    }
+
+    if (!process.env.KIT_KEY) {
+
+      throw new Error(
+        "KIT_KEY tidak ditemukan"
+      );
+
+    }
+
+    console.log("================================");
+
+    console.log(
+      "BODY =",
+      body
+    );
+
     const adapter =
       createViemAdapterFromPrivateKey({
-        privateKey: process.env.PRIVATE_KEY!
+
+        privateKey:
+          process.env.PRIVATE_KEY
+
       });
+
+    console.log("ADAPTER =");
+
+    console.dir(
+      adapter,
+      {
+        depth: null
+      }
+    );
 
     const context =
       createSwapKitContext();
-console.log("Testing internet...");
-const tokenIn =
-body.tokenIn;
 
-const tokenOut =
-body.tokenOut;
-const response = await fetch(
-  "https://api.circle.com"
-);
+    console.log("START SWAP");
 
-console.log(
-  "Circle status:",
-  response.status
-);
-console.log(
-"tokenIn =",
-tokenIn
-);
+    console.log(
+      "FROM CHAIN =",
+      "Arc_Testnet"
+    );
 
-console.log(
-"tokenOut =",
-tokenOut
-);
+    console.log(
+      "TOKEN IN =",
+      tokenIn
+    );
 
-console.log(
-"amountIn =",
-amount
-);
-const result = await swap(
-  context,
-  {
-    from: {
-      adapter,
-      chain: "Arc_Testnet"
-    },
+    console.log(
+      "TOKEN OUT =",
+      tokenOut
+    );
 
-    tokenIn,
+    console.log(
+      "AMOUNT =",
+      amount
+    );
 
-    tokenOut,
+    console.log(
+      "USING APPROVE MODE"
+    );
 
-    amountIn: amount,
+    const result =
+      await swap(
+        context,
+        {
 
-    config: {
-      kitKey: process.env.KIT_KEY!
-    }
+          from: {
+
+            adapter,
+
+            chain:
+              "Arc_Testnet"
+
+          },
+
+          tokenIn,
+
+          tokenOut,
+
+          amountIn:
+            String(amount),
+
+          config: {
+
+            kitKey:
+              process.env.KIT_KEY!,
+
+            allowanceStrategy:
+              "approve"
+
+          }
+
+        }
+      );
+
+    console.log(
+      "SWAP SUCCESS"
+    );
+
+    console.dir(
+      result,
+      {
+        depth: null
+      }
+    );
+
+    return Response.json(
+      {
+
+        success: true,
+
+        result
+
+      }
+    );
+
   }
-);
-    return Response.json({
-      success: true,
-      result
-    });
-    
 
-  } catch (error: any) {
+  catch (error: any) {
 
-  console.log("================================");
-  console.log("NAME:");
-  console.log(error?.name);
+    console.log(
+      "================================"
+    );
 
-  console.log("MESSAGE:");
-  console.log(error?.message);
+    console.log(
+      "SWAP FAILED"
+    );
 
-  console.log("CODE:");
-  console.log(error?.code);
+    console.log(
+      "name:",
+      error?.name
+    );
 
-  console.log("TYPE:");
-  console.log(error?.type);
+    console.log(
+      "message:",
+      error?.message
+    );
 
-  console.log("CAUSE:");
-  console.dir(
-    error?.cause,
-    {
-      depth: null
-    }
-  );
+    console.log(
+      "code:",
+      error?.code
+    );
 
-  console.log("FULL ERROR:");
-  console.dir(
-    error,
-    {
-      depth: null
-    }
-  );
+    console.log(
+      "type:",
+      error?.type
+    );
 
-  return Response.json(
-    {
-      success: false
-    },
-    {
-      status: 500
-    }
-  );
+    console.dir(
+      error,
+      {
+        depth: null
+      }
+    );
 
-}
+    return Response.json(
+      {
+
+        success: false,
+
+        name:
+          error?.name,
+
+        message:
+          error?.message,
+
+        code:
+          error?.code,
+
+        type:
+          error?.type,
+
+        cause:
+          error?.cause
+
+      },
+      {
+        status: 500
+      }
+    );
+
+  }
+
 }

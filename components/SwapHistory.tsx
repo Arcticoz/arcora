@@ -2,10 +2,19 @@
 
 import { useEffect, useState } from "react";
 
+type HistoryItem = {
+  amount: string;
+  tokenIn: string;
+  tokenOut: string;
+  date: string;
+  txHash?: string;
+  explorerUrl?: string;
+};
+
 export default function SwapHistory() {
 
   const [history, setHistory] =
-    useState<string[]>([]);
+    useState<HistoryItem[]>([]);
 
   useEffect(() => {
 
@@ -26,7 +35,7 @@ export default function SwapHistory() {
 
   return (
 
-    <div
+    <section
       className="
       bg-zinc-900
       border
@@ -37,33 +46,15 @@ export default function SwapHistory() {
       "
     >
 
-      <div
+      <h2
         className="
-        flex
-        items-center
-        justify-between
+        text-2xl
+        font-bold
+        mb-6
         "
       >
-
-        <h2
-          className="
-          text-2xl
-          font-bold
-          "
-        >
-          Swap History
-        </h2>
-
-        <div
-          className="
-          text-zinc-400
-          text-sm
-          "
-        >
-          {history.length} Activities
-        </div>
-
-      </div>
+        Swap History
+      </h2>
 
       {
 
@@ -75,19 +66,16 @@ export default function SwapHistory() {
           className="
           text-zinc-500
           text-center
-          py-12
+          py-10
           "
         >
-
-          No swap history yet
-
+          No transactions yet
         </div>
 
         :
 
         <div
           className="
-          mt-6
           space-y-4
           "
         >
@@ -95,65 +83,70 @@ export default function SwapHistory() {
           {
 
             history.map(
-
               (
                 item,
                 index
               ) => (
 
                 <div
+
                   key={index}
+
                   className="
                   bg-zinc-800
-                  border
-                  border-zinc-700
                   rounded-2xl
                   p-4
-                  hover:border-purple-500
-                  duration-300
                   "
+
                 >
 
                   <div
                     className="
-                    flex
-                    items-center
-                    justify-between
+                    text-lg
+                    font-bold
                     "
                   >
-
-                    <div>
-
-                      <p
-                        className="
-                        font-semibold
-                        "
-                      >
-                        {item}
-                      </p>
-
-                      <p
-                        className="
-                        text-zinc-500
-                        text-sm
-                        mt-1
-                        "
-                      >
-                        Completed
-                      </p>
-
-                    </div>
-
-                    <div
-                      className="
-                      text-green-400
-                      text-xl
-                      "
-                    >
-                      ✓
-                    </div>
-
+                    {item.amount}
+                    {" "}
+                    {item.tokenIn}
+                    {" → "}
+                    {item.tokenOut}
                   </div>
+
+                  <div
+                    className="
+                    text-zinc-500
+                    text-sm
+                    mt-2
+                    "
+                  >
+                    {item.date}
+                  </div>
+                  {
+
+                  item.txHash &&
+
+                  <a
+
+                    href={item.explorerUrl}
+
+                    target="_blank"
+
+                    className="
+                    text-purple-400
+                    text-sm
+                    mt-3
+                    inline-block
+                    hover:text-purple-300
+                    "
+
+                  >
+
+                    View on Explorer ↗
+
+                  </a>
+
+                }
 
                 </div>
 
@@ -167,7 +160,7 @@ export default function SwapHistory() {
 
       }
 
-    </div>
+    </section>
 
   );
 

@@ -1,20 +1,11 @@
 import ConnectWallet from "@/components/ConnectWallet";
-import Dashboard from "@/components/Dashboard";
-import WalletCard from "@/components/WalletCard";
-import BalanceCard from "@/components/BalanceCard";
-import NFTCard from "@/components/NFTCard";
-import NFTInfo from "@/components/NFTInfo";
-import MyNFTs from "@/components/MyNFTs";
 import SwapCard from "@/components/SwapCard";
 import EURCBalance from "@/components/EURCBalance";
 import SwapHistory from "@/components/SwapHistory";
-import DashboardStats from "@/components/DashboardStats";
 import RecentActivity from "@/components/RecentActivity";
 import Footer from "@/components/Footer";
-import MarketOverview from "@/components/MarketOverview";
 
-
-export default function Home() {
+export default function SwapPage() {
 
   return (
 
@@ -34,7 +25,7 @@ export default function Home() {
         px-8
         xl:px-16
         py-10
-        space-y-12
+        space-y-10
         "
       >
 
@@ -55,7 +46,6 @@ export default function Home() {
           <h1
             className="
             text-6xl
-            xl:text-7xl
             font-black
             bg-linear-to-r
             from-purple-400
@@ -65,7 +55,7 @@ export default function Home() {
             bg-clip-text
             "
           >
-            Own. Swap. Explore.
+            Swap
           </h1>
 
           <p
@@ -75,93 +65,28 @@ export default function Home() {
             mt-5
             "
           >
-            Swap • NFTs • Portfolio • Arc Testnet
+            Swap USDC and EURC instantly.
           </p>
 
         </section>
 
 
-        {/* Dashboard */}
-
-        <section
-          className="
-          space-y-6
-          "
-        >
-
-          <Dashboard />
-
-          <DashboardStats />
-
-          <MarketOverview />
-
-        </section>
-
-
-        {/* Wallet + Balance */}
-
-        <section
+        <div
           className="
           grid
           xl:grid-cols-2
-          gap-8
-          "
-        >
-
-          <WalletCard />
-
-          <BalanceCard />
-
-        </section>
-
-
-        {/* Main */}
-
-        <section
-          className="
-          grid
-          2xl:grid-cols-2
           gap-10
           items-start
           "
         >
 
-          {/* Left */}
+          <SwapCard />
 
           <div
             className="
             space-y-10
             "
           >
-
-            <section
-              className="
-              grid
-              xl:grid-cols-2
-              gap-8
-              "
-            >
-
-              <NFTInfo />
-
-              <NFTCard />
-
-            </section>
-
-            <MyNFTs />
-
-          </div>
-
-
-          {/* Right */}
-
-          <div
-            className="
-            space-y-10
-            "
-          >
-
-            <SwapCard />
 
             <EURCBalance />
 
@@ -171,7 +96,7 @@ export default function Home() {
 
           </div>
 
-        </section>
+        </div>
 
       </div>
 

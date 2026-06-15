@@ -88,21 +88,22 @@ export default function ConnectWallet() {
               gap-2
               "
             >
-
-              <button
+              <Link
+                href="/"
                 className="
                 px-5
                 py-2
                 rounded-full
-                bg-zinc-800
-                text-white
-                font-medium
+                text-zinc-400
+                hover:bg-zinc-800
+                hover:text-white
+                duration-300
                 "
               >
                 Dashboard
-              </button>
-
-              <button
+              </Link>
+              <Link
+                href="/nfts"
                 className="
                 px-5
                 py-2
@@ -114,35 +115,37 @@ export default function ConnectWallet() {
                 "
               >
                 NFTs
-              </button>
+              </Link>
 
-              <button
-                className="
-                px-5
-                py-2
-                rounded-full
-                text-zinc-400
-                hover:bg-zinc-800
-                hover:text-white
-                duration-300
-                "
-              >
-                Swap
-              </button>
-
-              <button
-                className="
-                px-5
-                py-2
-                rounded-full
-                text-zinc-400
-                hover:bg-zinc-800
-                hover:text-white
-                duration-300
-                "
-              >
-                Portfolio
-              </button>
+            <Link
+              href="/swap"
+              className="
+              px-5
+              py-2
+              rounded-full
+              text-zinc-400
+              hover:bg-zinc-800
+              hover:text-white
+              duration-300
+              "
+            >
+              Swap
+            </Link>
+            
+            <Link
+              href="/portfolio"
+              className="
+              px-5
+              py-2
+              rounded-full
+              text-zinc-400
+              hover:bg-zinc-800
+              hover:text-white
+              duration-300
+              "
+            >
+              Portfolio
+            </Link>
 
             </nav>
 
