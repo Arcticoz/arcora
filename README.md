@@ -99,9 +99,17 @@ KIT_KEY=KIT_KEY:your_key_id:your_key_secret
 ---
 
 ## Screenshots
-<img width="425" height="492" alt="Screenshot 2026-06-14 145936" src="https://github.com/user-attachments/assets/9c93bef8-53a7-45b4-bf4d-2dbd1969bdd4" />
-<img width="436" height="575" alt="Screenshot 2026-06-14 145944" src="https://github.com/user-attachments/assets/7790dae5-96e4-4b29-afbd-8b1e969bddc0" />
-<img width="885" height="678" alt="Screenshot 2026-06-14 145956" src="https://github.com/user-attachments/assets/bb842942-38c9-4012-b355-b8376e2b0725" />
+DASHBOARD
+<img width="1651" height="912" alt="Screenshot 2026-06-15 202014" src="https://github.com/user-attachments/assets/6f70a413-6f50-407f-bedf-3978a7092f54" />
+
+NFTS
+<img width="889" height="855" alt="Screenshot 2026-06-15 202042" src="https://github.com/user-attachments/assets/6de24723-91be-4274-a47d-c2c6773b5c6d" />
+
+SWAP
+<img width="894" height="779" alt="Screenshot 2026-06-15 202106" src="https://github.com/user-attachments/assets/d5c9ec17-0b1d-4a4b-aa58-ff30737bae6e" />
+
+PORTOFOLIO
+<img width="586" height="911" alt="Screenshot 2026-06-15 202122" src="https://github.com/user-attachments/assets/1ce99e5b-7597-4ab2-9a7c-2d594db204b5" />
 
 
 ---
