@@ -100,16 +100,19 @@ KIT_KEY=KIT_KEY:your_key_id:your_key_secret
 
 ## Screenshots
 DASHBOARD
-<img width="1651" height="912" alt="Screenshot 2026-06-15 202014" src="https://github.com/user-attachments/assets/6f70a413-6f50-407f-bedf-3978a7092f54" />
+<img width="1185" height="938" alt="Screenshot 2026-06-18 074019" src="https://github.com/user-attachments/assets/9c7d1182-bbf1-4622-a6fd-ca5c4ecc10ed" />
 
 NFTS
-<img width="889" height="855" alt="Screenshot 2026-06-15 202042" src="https://github.com/user-attachments/assets/6de24723-91be-4274-a47d-c2c6773b5c6d" />
+<img width="891" height="837" alt="Screenshot 2026-06-18 074129" src="https://github.com/user-attachments/assets/86c6d209-655c-4bf6-a8e5-5b2a761edd29" />
 
 SWAP
-<img width="894" height="779" alt="Screenshot 2026-06-15 202106" src="https://github.com/user-attachments/assets/d5c9ec17-0b1d-4a4b-aa58-ff30737bae6e" />
+<img width="1169" height="962" alt="Screenshot 2026-06-18 074233" src="https://github.com/user-attachments/assets/8b93c098-263b-4352-a257-43cc0923049d" />
+
+BRIDGE
+<img width="1187" height="792" alt="Screenshot 2026-06-18 074302" src="https://github.com/user-attachments/assets/ce5fd9fb-8733-4148-a4d7-44b6fd77e4c5" />
 
 PORTOFOLIO
-<img width="586" height="911" alt="Screenshot 2026-06-15 202122" src="https://github.com/user-attachments/assets/1ce99e5b-7597-4ab2-9a7c-2d594db204b5" />
+<img width="878" height="862" alt="Screenshot 2026-06-18 074346" src="https://github.com/user-attachments/assets/c3f3639e-1653-4d3d-b0b9-a48150401e45" />
 
 
 
@@ -130,10 +133,10 @@ ARCora is deployed on Vercel.
 * [+] NFT gallery
 * [+] Price charts
 * [+] Transaction explorer
-* [ ] Token Bridge
-* [ ] Multi-chain support
-* [ ] AI portfolio assistant
-* [ ] Staking
+* [+] Token Bridge
+* [+] Multi-chain support
+* [-] AI portfolio assistant
+* [-] Staking
 
 ---
 
