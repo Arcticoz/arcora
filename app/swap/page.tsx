@@ -1,6 +1,5 @@
 import ConnectWallet from "@/components/ConnectWallet";
 import SwapCard from "@/components/SwapCard";
-import EURCBalance from "@/components/EURCBalance";
 import SwapHistory from "@/components/SwapHistory";
 import RecentActivity from "@/components/RecentActivity";
 import Footer from "@/components/Footer";
@@ -20,12 +19,10 @@ export default function SwapPage() {
 
       <div
         className="
-        max-w-[1800px]
+        max-w-7xl
         mx-auto
-        px-8
-        xl:px-16
+        px-6
         py-10
-        space-y-8
         "
       >
 
@@ -33,10 +30,12 @@ export default function SwapPage() {
 
         <section
           className="
+          max-w-5xl
+          mx-auto
           bg-zinc-900/70
           border
           border-white/10
-          rounded-[40px]
+          rounded-4xl
           p-8
           backdrop-blur-xl
           shadow-2xl
@@ -64,58 +63,43 @@ export default function SwapPage() {
             mt-3
             "
           >
-            Swap USDC and EURC instantly.
+            Instantly swap USDC and EURC on Arc Testnet.
           </p>
 
         </section>
 
 
-        {/* EURC Balance */}
-
-        <div
-          className="
-          max-w-3xl
-          mx-auto
-          "
-        >
-          <EURCBalance />
-        </div>
-
-
         {/* Swap Card */}
 
-        <div
+<section
+  className="
+  max-w-5xl
+  mx-auto
+  mt-10
+  "
+>
+
+  <SwapCard />
+
+</section>
+
+
+        {/* History + Activity */}
+
+        <section
           className="
-          max-w-3xl
+          max-w-5xl
           mx-auto
+          mt-20
+          space-y-8
           "
         >
-          <SwapCard />
-        </div>
 
-
-        {/* Swap History */}
-
-        <div
-          className="
-          max-w-5x2
-          mx-auto
-          "
-        >
           <SwapHistory />
-        </div>
 
-
-        {/* Recent Activity */}
-
-        <div
-          className="
-          max-w-5x2
-          mx-auto
-          "
-        >
           <RecentActivity />
-        </div>
+
+        </section>
 
       </div>
 

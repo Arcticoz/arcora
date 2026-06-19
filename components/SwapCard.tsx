@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
+import { useTokenBalance } from "@/hooks/useTokenBalance";
 
 export default function SwapCard() {
 
@@ -14,20 +15,35 @@ export default function SwapCard() {
       ? "EURC"
       : "USDC";
 
+  const USDC_ADDRESS =
+  "0x3600000000000000000000000000000000000000";
+
+  const EURC_ADDRESS =
+  "0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a";
+
+  const usdcBalance =
+  useTokenBalance(
+    USDC_ADDRESS
+  );
+
+  const eurcBalance =
+  useTokenBalance(
+    EURC_ADDRESS
+  );
+
+  function reverseTokens() {
+
+    setTokenIn(
+      tokenOut
+    );
+
+  }
+
   async function swap() {
 
     try {
 
       setLoading(true);
-
-      console.log(
-        "SEND",
-        {
-          amount,
-          tokenIn,
-          tokenOut
-        }
-      );
 
       const response =
         await fetch(
@@ -51,20 +67,13 @@ export default function SwapCard() {
       const data =
         await response.json();
 
-      console.log("RESPONSE =", data);
-
       if (data.success) {
 
         const history =
-
           JSON.parse(
-
             localStorage.getItem(
               "swapHistory"
-            )
-
-            ?? "[]"
-
+            ) ?? "[]"
           );
 
         history.unshift({
@@ -130,42 +139,80 @@ export default function SwapCard() {
 
     <section
       className="
-      bg-zinc-900/70
+      bg-zinc-900/80
       backdrop-blur-xl
       border
       border-white/10
-      rounded-4xl
-      p-6
+      rounded-[40px]
+      p-8
       shadow-2xl
       "
     >
 
-      <h2
+      <div
         className="
-        text-3xl
-        font-bold
-        mb-6
+        flex
+        items-center
+        justify-between
+        mb-5
         "
       >
-        Swap
-      </h2>
+
+        <h2
+          className="
+          text-3xl
+          font-bold
+          "
+        >
+          Swap
+        </h2>
+
+      </div>
+
+
+      {/* You Pay */}
 
       <div
         className="
         bg-zinc-800
-        rounded-3xl
+        rounded-[28px]
         p-5
+        hover:bg-zinc-800/80
+        duration-300
         "
       >
 
-        <p
+        <div
           className="
-          text-zinc-500
-          text-sm
+          flex
+          justify-between
+          items-center
           "
         >
-          You Pay
+
+          <p
+            className="
+            text-zinc-500
+            text-sm
+            "
+          >
+            You Pay
+          </p>
+
+        <p
+          className="
+          text-xs
+          text-zinc-400
+          "
+        >
+          Balance: {
+            tokenIn === "USDC"
+              ? usdcBalance.toFixed(4)
+              : eurcBalance.toFixed(4)
+          } {tokenIn}
         </p>
+
+        </div>
 
         <div
           className="
@@ -187,8 +234,8 @@ export default function SwapCard() {
             className="
             bg-transparent
             outline-none
-            text-3xl
-            font-bold
+            text-4xl
+            font-black
             w-40
             "
           />
@@ -205,6 +252,8 @@ export default function SwapCard() {
             rounded-full
             px-5
             py-3
+            font-semibold
+            cursor-pointer
             "
           >
 
@@ -222,45 +271,170 @@ export default function SwapCard() {
 
       </div>
 
+
+      {/* Switch */}
+
       <div
         className="
         flex
         justify-center
-        py-4
-        text-3xl
+        -my-3
+        relative
+        z-10
         "
       >
-        ↓
+
+        <button
+          onClick={reverseTokens}
+          className="
+          w-12
+          h-12
+          rounded-full
+          bg-zinc-900
+          border
+          border-white/10
+          text-xl
+          hover:rotate-180
+          hover:scale-110
+          duration-300
+          "
+        >
+          ⇅
+        </button>
+
       </div>
+
+
+      {/* You Receive */}
 
       <div
         className="
         bg-zinc-800
-        rounded-3xl
+        rounded-[28px]
         p-5
+        hover:bg-zinc-800/80
+        duration-300
         "
       >
 
-        <p
+        <div
           className="
-          text-zinc-500
-          text-sm
+          flex
+          justify-between
+          items-center
           "
         >
-          You Receive
-        </p>
+
+          <p
+            className="
+            text-zinc-500
+            text-sm
+            "
+          >
+            You Receive
+          </p>
+
+          <p
+            className="
+            text-xs
+            text-zinc-400
+            "
+          >
+            Balance: {
+              tokenOut === "USDC"
+                ? usdcBalance.toFixed(4)
+                : eurcBalance.toFixed(4)
+            } {tokenOut}
+          </p>
+      
+
+        </div>
 
         <div
           className="
-          text-3xl
-          font-black
+          flex
+          items-center
+          justify-between
           mt-4
           "
         >
-          {tokenOut}
+
+          <div
+            className="
+            text-4xl
+            font-black
+            "
+          >
+            {amount}
+          </div>
+
+          <div
+            className="
+            bg-zinc-700
+            rounded-full
+            px-5
+            py-3
+            font-semibold
+            "
+          >
+            {tokenOut}
+          </div>
+
         </div>
 
       </div>
+
+
+      {/* Info */}
+
+      <div
+        className="
+        mt-5
+        space-y-2
+        text-sm
+        text-zinc-400
+        px-1
+        "
+      >
+
+        <div
+          className="
+          flex
+          justify-between
+          "
+        >
+
+          <span>
+            Rate
+          </span>
+
+          <span>
+            1 {tokenIn} = 1 {tokenOut}
+          </span>
+
+        </div>
+
+        <div
+          className="
+          flex
+          justify-between
+          "
+        >
+
+          <span>
+            Network
+          </span>
+
+          <span>
+            Arc Testnet
+          </span>
+
+        </div>
+
+      </div>
+
+
+      {/* Swap Button */}
 
       <button
 
@@ -270,16 +444,17 @@ export default function SwapCard() {
 
         className="
         w-full
+        h-16
         mt-6
-        py-4
-        rounded-full
+        rounded-2xl
         text-lg
         font-bold
         bg-linear-to-r
         from-purple-600
         via-pink-500
         to-blue-500
-        hover:scale-[1.02]
+        hover:opacity-90
+        hover:scale-[1.01]
         duration-300
         "
 
