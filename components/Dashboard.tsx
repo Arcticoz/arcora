@@ -2,7 +2,6 @@
 
 import {
   useAccount,
-  useChainId
 } from "wagmi";
 
 import {
@@ -25,9 +24,6 @@ export default function Dashboard() {
     address,
     isConnected
   } = useAccount();
-
-  const chainId =
-    useChainId();
 
   if (!mounted)
     return null;
@@ -109,15 +105,15 @@ export default function Dashboard() {
             ARCora
           </h1>
 
-          <p
-            className="
-            text-zinc-400
-            text-lg
-            mt-3
-            "
-          >
-            Swap Anytime, Mint Anywhere.
-          </p>
+        <p
+          className="
+          text-zinc-400
+          text-lg
+          mt-3
+          "
+        >
+          Manage stablecoins, NFTs, and cross-chain assets with a seamless experience powered by Arc and Circle.
+        </p>
 
         </div>
 
@@ -128,107 +124,6 @@ export default function Dashboard() {
           "
         >
           Connected ✓
-        </div>
-
-      </div>
-
-
-      <div
-        className="
-        grid
-        lg:grid-cols-3
-        gap-6
-        mt-10
-        "
-      >
-
-        <div
-          className="
-          bg-zinc-800
-          rounded-3xl
-          p-6
-          "
-        >
-
-          <p
-            className="
-            text-zinc-500
-            text-sm
-            "
-          >
-            Wallet Address
-          </p>
-
-          <p
-            className="
-            mt-3
-            font-semibold
-            break-all
-            "
-          >
-            {address}
-          </p>
-
-        </div>
-
-
-        <div
-          className="
-          bg-zinc-800
-          rounded-3xl
-          p-6
-          "
-        >
-
-          <p
-            className="
-            text-zinc-500
-            text-sm
-            "
-          >
-            Network
-          </p>
-
-          <h3
-            className="
-            text-2xl
-            font-bold
-            mt-3
-            "
-          >
-            Arc Testnet
-          </h3>
-
-        </div>
-
-
-        <div
-          className="
-          bg-zinc-800
-          rounded-3xl
-          p-6
-          "
-        >
-
-          <p
-            className="
-            text-zinc-500
-            text-sm
-            "
-          >
-            Chain ID
-          </p>
-
-          <h3
-            className="
-            text-2xl
-            font-bold
-            mt-3
-            "
-          >
-            {chainId}
-          </h3>
-
         </div>
 
       </div>

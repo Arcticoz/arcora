@@ -1,11 +1,7 @@
 import ConnectWallet from "@/components/ConnectWallet";
-import Dashboard from "@/components/Dashboard";
-import NFTCard from "@/components/NFTCard";
-import NFTInfo from "@/components/NFTInfo";
-import MyNFTs from "@/components/MyNFTs";
 import DashboardStats from "@/components/DashboardStats";
 import Footer from "@/components/Footer";
-import MarketOverview from "@/components/MarketOverview";
+
 
 export default function Home() {
 
@@ -76,11 +72,10 @@ export default function Home() {
 
         {/* Dashboard */}
 
-        <Dashboard />
+       
 
         <DashboardStats />
 
-        <MarketOverview />
 
 
         {/* Wallet */}
@@ -106,17 +101,12 @@ export default function Home() {
           "
         >
 
-          <NFTInfo />
-
-          <NFTCard />
-
         </section>
 
 
         {/* My NFTs */}
 
-        <MyNFTs />
-
+    
 
         {/* EURC Balance */}
 

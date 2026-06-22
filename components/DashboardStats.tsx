@@ -1,7 +1,5 @@
 "use client";
 
-import { useAccount } from "wagmi";
-
 import StatsCard from "./StatsCard";
 import USDCStats from "./USDCStats";
 import EURCStats from "./EURCStats";
@@ -10,101 +8,84 @@ import TotalAssets from "./TotalAssets";
 
 export default function DashboardStats() {
 
-  const { address } =
-    useAccount();
+return (
 
-  return (
+<section
+  className="
+  bg-zinc-900/70
+  backdrop-blur-xl
+  border
+  border-white/10
+  rounded-[40px]
+  p-10
+  shadow-2xl
+  space-y-8
+  "
+>
 
-    <section
+  {/* Header */}
+
+  <div>
+
+    <h2
       className="
-      bg-zinc-900/70
-      backdrop-blur-xl
-      border
-      border-white/10
-      rounded-[40px]
-      p-10
-      shadow-2xl
-      space-y-8
+      text-4xl
+      font-bold
       "
     >
+      Portfolio Overview
+    </h2>
 
-      {/* Header */}
+    <p
+      className="
+      text-zinc-400
+      mt-3
+      "
+    >
+      Assets, NFTs and balances across ARCora.
+    </p>
 
-      <div>
+  </div>
 
-        <h2
-          className="
-          text-4xl
-          font-bold
-          "
-        >
-          Portfolio Overview
-        </h2>
+  {/* Cards */}
 
-        <p
-          className="
-          text-zinc-400
-          mt-3
-          "
-        >
-          Assets, NFTs and balances across ARCora.
-        </p>
+  <div
+    className="
+    grid
+    md:grid-cols-2
+    xl:grid-cols-5
+    gap-6
+    "
+  >
 
-      </div>
+    <StatsCard
+      title="USDC"
+      value={<USDCStats />}
+    />
 
+    <StatsCard
+      title="EURC"
+      value={<EURCStats />}
+    />
 
-      {/* Cards */}
+    <StatsCard
+      title="NFT Owned"
+      value={<NFTCount />}
+    />
 
-      <div
-        className="
-        grid
-        md:grid-cols-2
-        xl:grid-cols-5
-        gap-6
-        "
-      >
+    <div className="xl:col-span-2">
 
-        <StatsCard
-          title="Wallet"
-          value={
-            address
-              ? `${address.slice(0, 6)}...${address.slice(-4)}`
-              : "-"
-          }
-        />
+      <StatsCard
+        title="Total Assets"
+        value={<TotalAssets />}
+      />
 
-        <StatsCard
-          title="USDC"
-          value={
-            <USDCStats />
-          }
-        />
+    </div>
 
-        <StatsCard
-          title="EURC"
-          value={
-            <EURCStats />
-          }
-        />
+  </div>
 
-        <StatsCard
-          title="NFT Owned"
-          value={
-            <NFTCount />
-          }
-        />
+</section>
 
-        <StatsCard
-          title="Total Assets"
-          value={
-            <TotalAssets />
-          }
-        />
-
-      </div>
-
-    </section>
-
-  );
+);
 
 }

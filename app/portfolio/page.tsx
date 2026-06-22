@@ -3,7 +3,6 @@ import PortfolioAllocation from "@/components/PortfolioAllocation";
 import Footer from "@/components/Footer";
 import AssetBreakdown from "@/components/AssetBreakdown";
 import PerformanceChart from "@/components/PerformanceChart";
-import TopHoldings from "@/components/TopHoldings";
 import ProfitLoss from "@/components/ProfitLoss";
 import TransactionHistory from "@/components/TransactionHistory";
 
@@ -74,11 +73,9 @@ export default function PortfolioPage() {
 
         <ProfitLoss />
 
-        <AssetBreakdown />
-
-        <TopHoldings />
-
         <PerformanceChart />
+
+        <AssetBreakdown />
 
         <PortfolioAllocation />
 
