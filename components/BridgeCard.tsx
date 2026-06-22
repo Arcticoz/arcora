@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
+import { CHAINS } from "@/constants/chains";
+
 
 export default function BridgeCard() {
 
@@ -15,7 +17,7 @@ export default function BridgeCard() {
     useState(false);
 
   const toChain =
-    "Arc_Testnet";
+    CHAINS.ARC_TESTNET;
 
   async function bridge() {
 

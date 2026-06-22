@@ -1,78 +1,72 @@
-import {
-  createSwapKitContext,
-  swap
-} from "@circle-fin/swap-kit";
+import { executeSwap } from "@/lib/executeSwap";
+import { recoverSwap } from "@/lib/recoverSwap";
+import { CHAINS } from "@/constants/chains";
 
-import {
-  createViemAdapterFromPrivateKey
-} from "@circle-fin/adapter-viem-v2";
-
-export async function POST(request: Request) {
+export async function POST(
+  request: Request
+) {
 
   try {
 
-    const body = await request.json();
+    const body =
+      await request.json();
 
-    const amount = body.amount;
-    const tokenIn = body.tokenIn;
-    const tokenOut = body.tokenOut;
+    const amount =
+      body.amount;
+
+    const tokenIn =
+      body.tokenIn;
+
+    const tokenOut =
+      body.tokenOut;
 
     if (
+
       amount === undefined ||
+
       tokenIn === undefined ||
+
       tokenOut === undefined
+
     ) {
 
       return Response.json(
+
         {
+
           success: false,
-          error: "amount, tokenIn, dan tokenOut wajib diisi"
+
+          error:
+            "amount, tokenIn, dan tokenOut wajib diisi"
+
         },
+
         {
+
           status: 400
+
         }
+
       );
 
     }
 
-    if (!process.env.PRIVATE_KEY) {
+    console.log(
+      "================================"
+    );
 
-      throw new Error(
-        "PRIVATE_KEY tidak ditemukan"
-      );
+    console.log(
+      "BODY =",
+      body
+    );
 
-    }
-
-    if (!process.env.KIT_KEY) {
-
-      throw new Error(
-        "KIT_KEY tidak ditemukan"
-      );
-
-    }
-
-    console.log("================================");
-    console.log("BODY =", body);
-
-    const adapter =
-      createViemAdapterFromPrivateKey({
-
-        privateKey:
-          process.env.PRIVATE_KEY
-
-      });
-
-    console.log("SERVICE ADDRESS =");
-  
-
-    const context =
-      createSwapKitContext();
-
-    console.log("START SWAP");
+    console.log(
+      "START SWAP"
+    );
 
     console.log(
       "FROM CHAIN =",
-      "Arc_Testnet"
+      CHAINS.ARC_TESTNET
     );
 
     console.log(
@@ -90,35 +84,21 @@ export async function POST(request: Request) {
       amount
     );
 
-    console.log(
-      "ALLOWANCE STRATEGY = APPROVE"
-    );
-
     const result =
-      await swap(
-        context,
-        {
+      await recoverSwap(
 
-          from: {
+        () =>
 
-            adapter,
+          executeSwap(
 
-            chain:
-              "Arc_Testnet"
-
-          },
-
-          tokenIn,
-
-          tokenOut,
-
-          amountIn:
             String(amount),
-config: {
-  kitKey: process.env.KIT_KEY!,
-}
 
-        }
+            tokenIn,
+
+            tokenOut
+
+          )
+
       );
 
     console.log(
@@ -133,6 +113,7 @@ config: {
     );
 
     return Response.json(
+
       {
 
         success: true,
@@ -140,6 +121,7 @@ config: {
         result
 
       }
+
     );
 
   }
@@ -182,6 +164,7 @@ config: {
     );
 
     return Response.json(
+
       {
 
         success: false,
@@ -202,9 +185,13 @@ config: {
           error?.cause
 
       },
+
       {
+
         status: 500
+
       }
+
     );
 
   }

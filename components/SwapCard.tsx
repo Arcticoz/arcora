@@ -1,139 +1,70 @@
 "use client";
 
 import { useState } from "react";
-import { toast } from "sonner";
+
+import { useSwap } from "@/hooks/useSwap";
+import { useTokens } from "@/hooks/useTokens";
 import { useTokenBalance } from "@/hooks/useTokenBalance";
+import { useSlippage } from "@/hooks/useSlippage";
+import { useAmount } from "@/hooks/useAmount";
+import { useBalances } from "@/hooks/useBalances";
+
+
+import SwapInput from "./SwapInput";
+import SwapOutput from "./SwapOutput";
+import SwapInfo from "./SwapInfo";
+import SlippageSelector from "./SlippageSelector";
+import SwapButton from "./SwapButton";
+import SwapDirectionButton from "./SwapDirectionButton";
+
 
 export default function SwapCard() {
 
-  const [amount, setAmount] = useState("1");
-  const [loading, setLoading] = useState(false);
-  const [tokenIn, setTokenIn] = useState("USDC");
+  const {
 
-  const tokenOut =
-    tokenIn === "USDC"
-      ? "EURC"
-      : "USDC";
+  amount,
 
-  const USDC_ADDRESS =
-  "0x3600000000000000000000000000000000000000";
+  setAmount
 
-  const EURC_ADDRESS =
-  "0x89B50855Aa3bE2F677cD6303Cec089B5F319D72a";
+} = useAmount();
 
-  const usdcBalance =
-  useTokenBalance(
-    USDC_ADDRESS
-  );
+  const {
 
-  const eurcBalance =
-  useTokenBalance(
-    EURC_ADDRESS
-  );
+  slippage,
 
-  function reverseTokens() {
+  setSlippage
 
-    setTokenIn(
-      tokenOut
-    );
+} = useSlippage();
 
-  }
+  const {
 
-  async function swap() {
+    tokenIn,
 
-    try {
+    tokenOut,
 
-      setLoading(true);
+    setTokenIn,
 
-      const response =
-        await fetch(
-          "/api/swap",
-          {
-            method: "POST",
+    reverseTokens
 
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
+  } = useTokens();
 
-            body: JSON.stringify({
-              amount,
-              tokenIn,
-              tokenOut
-            })
-          }
-        );
+  const {
 
-      const data =
-        await response.json();
+    status,
 
-      if (data.success) {
+    quote,
 
-        const history =
-          JSON.parse(
-            localStorage.getItem(
-              "swapHistory"
-            ) ?? "[]"
-          );
+    swap
 
-        history.unshift({
+  } = useSwap();
 
-          amount,
+  const {
 
-          tokenIn,
+  usdcBalance,
 
-          tokenOut,
+  eurcBalance
 
-          date:
-            new Date().toLocaleString(),
-
-          explorerUrl:
-            data.result?.explorerUrl,
-
-          txHash:
-            data.result?.txHash
-
-        });
-
-        localStorage.setItem(
-          "swapHistory",
-          JSON.stringify(history)
-        );
-
-        toast.success(
-          `${amount} ${tokenIn} → ${tokenOut}`
-        );
-
-      }
-
-      else {
-
-        toast.error(
-          data.message ??
-          "Swap failed"
-        );
-
-      }
-
-    }
-
-    catch (error) {
-
-      console.error(error);
-
-      toast.error(
-        "Swap failed"
-      );
-
-    }
-
-    finally {
-
-      setLoading(false);
-
-    }
-
-  }
+} = useBalances();
 
   return (
 
@@ -169,312 +100,105 @@ export default function SwapCard() {
 
       </div>
 
+      <SwapInput
 
-      {/* You Pay */}
+        amount={amount}
 
-      <div
-        className="
-        bg-zinc-800
-        rounded-[28px]
-        p-5
-        hover:bg-zinc-800/80
-        duration-300
-        "
-      >
+        setAmount={setAmount}
 
-        <div
-          className="
-          flex
-          justify-between
-          items-center
-          "
-        >
+        tokenIn={tokenIn}
 
-          <p
-            className="
-            text-zinc-500
-            text-sm
-            "
-          >
-            You Pay
-          </p>
+        setTokenIn={setTokenIn}
 
-        <p
-          className="
-          text-xs
-          text-zinc-400
-          "
-        >
-          Balance: {
-            tokenIn === "USDC"
-              ? usdcBalance.toFixed(4)
-              : eurcBalance.toFixed(4)
-          } {tokenIn}
-        </p>
+        balance={
 
-        </div>
+          tokenIn === "USDC"
 
-        <div
-          className="
-          flex
-          items-center
-          justify-between
-          mt-4
-          "
-        >
+            ?
 
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) =>
-              setAmount(
-                e.target.value
-              )
-            }
-            className="
-            bg-transparent
-            outline-none
-            text-4xl
-            font-black
-            w-40
-            "
-          />
+            usdcBalance
 
-          <select
-            value={tokenIn}
-            onChange={(e) =>
-              setTokenIn(
-                e.target.value
-              )
-            }
-            className="
-            bg-zinc-700
-            rounded-full
-            px-5
-            py-3
-            font-semibold
-            cursor-pointer
-            "
-          >
+            :
 
-            <option>
-              USDC
-            </option>
-
-            <option>
-              EURC
-            </option>
-
-          </select>
-
-        </div>
-
-      </div>
-
-
-      {/* Switch */}
-
-      <div
-        className="
-        flex
-        justify-center
-        -my-3
-        relative
-        z-10
-        "
-      >
-
-        <button
-          onClick={reverseTokens}
-          className="
-          w-12
-          h-12
-          rounded-full
-          bg-zinc-900
-          border
-          border-white/10
-          text-xl
-          hover:rotate-180
-          hover:scale-110
-          duration-300
-          "
-        >
-          ⇅
-        </button>
-
-      </div>
-
-
-      {/* You Receive */}
-
-      <div
-        className="
-        bg-zinc-800
-        rounded-[28px]
-        p-5
-        hover:bg-zinc-800/80
-        duration-300
-        "
-      >
-
-        <div
-          className="
-          flex
-          justify-between
-          items-center
-          "
-        >
-
-          <p
-            className="
-            text-zinc-500
-            text-sm
-            "
-          >
-            You Receive
-          </p>
-
-          <p
-            className="
-            text-xs
-            text-zinc-400
-            "
-          >
-            Balance: {
-              tokenOut === "USDC"
-                ? usdcBalance.toFixed(4)
-                : eurcBalance.toFixed(4)
-            } {tokenOut}
-          </p>
-      
-
-        </div>
-
-        <div
-          className="
-          flex
-          items-center
-          justify-between
-          mt-4
-          "
-        >
-
-          <div
-            className="
-            text-4xl
-            font-black
-            "
-          >
-            {amount}
-          </div>
-
-          <div
-            className="
-            bg-zinc-700
-            rounded-full
-            px-5
-            py-3
-            font-semibold
-            "
-          >
-            {tokenOut}
-          </div>
-
-        </div>
-
-      </div>
-
-
-      {/* Info */}
-
-      <div
-        className="
-        mt-5
-        space-y-2
-        text-sm
-        text-zinc-400
-        px-1
-        "
-      >
-
-        <div
-          className="
-          flex
-          justify-between
-          "
-        >
-
-          <span>
-            Rate
-          </span>
-
-          <span>
-            1 {tokenIn} = 1 {tokenOut}
-          </span>
-
-        </div>
-
-        <div
-          className="
-          flex
-          justify-between
-          "
-        >
-
-          <span>
-            Network
-          </span>
-
-          <span>
-            Arc Testnet
-          </span>
-
-        </div>
-
-      </div>
-
-
-      {/* Swap Button */}
-
-      <button
-
-        onClick={swap}
-
-        disabled={loading}
-
-        className="
-        w-full
-        h-16
-        mt-6
-        rounded-2xl
-        text-lg
-        font-bold
-        bg-linear-to-r
-        from-purple-600
-        via-pink-500
-        to-blue-500
-        hover:opacity-90
-        hover:scale-[1.01]
-        duration-300
-        "
-
-      >
-
-        {
-
-          loading
-
-          ?
-
-          "Swapping..."
-
-          :
-
-          `Swap ${tokenIn} → ${tokenOut}`
+            eurcBalance
 
         }
 
-      </button>
+      />
+
+      <SwapDirectionButton
+
+        onClick={reverseTokens}
+
+      />
+
+      <SwapOutput
+
+        amount={amount}
+
+        tokenOut={tokenOut}
+
+        balance={
+
+          tokenOut === "USDC"
+
+            ?
+
+            usdcBalance
+
+            :
+
+            eurcBalance
+
+        }
+
+      />
+
+      <SlippageSelector
+
+        slippage={slippage}
+
+        setSlippage={setSlippage}
+
+      />
+
+      <SwapInfo
+
+        quote={quote}
+
+        tokenIn={tokenIn}
+
+        tokenOut={tokenOut}
+
+        slippage={slippage}
+
+      />
+
+      <SwapButton
+
+        status={status}
+
+        tokenIn={tokenIn}
+
+        tokenOut={tokenOut}
+
+        onClick={() =>
+
+          swap(
+
+            amount,
+
+            tokenIn,
+
+            tokenOut,
+
+            slippage
+
+          )
+
+        }
+
+      />
 
     </section>
 
