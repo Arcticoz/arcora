@@ -3,9 +3,9 @@
 ### Swap. Mint. Own.
 https://arcora-opal.vercel.app/
 
-ARCora is a modern Web3 dashboard built with Next.js, TypeScript, Tailwind CSS, Wagmi, RainbowKit and Circle Developer Controlled Wallets.
+ARCora is a modern Web3 dashboard built with Next.js, TypeScript, Tailwind CSS, Wagmi, RainbowKit, and Circle Web3 Services.
 
-Designed with a premium UI inspired by Uniswap and Magic Eden, ARCora provides a seamless experience for managing assets, swapping tokens, and collecting NFTs.
+Designed with a premium UI inspired by Uniswap and Magic Eden, ARCora provides a seamless experience for managing assets, swapping stablecoins, bridging assets across chains, and collecting NFTs.
 
 ---
 
@@ -29,6 +29,13 @@ Designed with a premium UI inspired by Uniswap and Magic Eden, ARCora provides a
 * Swap between USDC and EURC
 * Powered by Circle Developer Controlled Wallets
 * Transaction history
+
+## Cross-Chain Bridge
+
+* Bridge assets across supported chains
+* Powered by Circle Bridge Kit
+* Track bridge transactions
+* Multi-chain support
 
 ### NFT Collection
 
@@ -54,6 +61,9 @@ Designed with a premium UI inspired by Uniswap and Magic Eden, ARCora provides a
 * Wagmi
 * RainbowKit
 * Viem
+* Circle AppKit
+* Circle Swap Kit
+* Circle Bridge Kit
 * Circle Web3 Services
 * Vercel
 
@@ -132,31 +142,19 @@ ARCora is deployed on Vercel.
 
 ---
 
-## Roadmap
 
-* [+] Wallet connection
-* [+] Portfolio dashboard
-* [+] Token swap
-* [+] NFT minting
-* [+] NFT gallery
-* [+] Price charts
-* [+] Transaction explorer
-* [+] Token Bridge
-* [+] Multi-chain support
-
-Current Development Status
+# Current Development Status
 
 Circle Swap Kit integration has been completed successfully.
 
-During development, Arc Testnet may temporarily return:
+During development, Arc Testnet may occasionally return:
 
 INPUT_UNSUPPORTED_ROUTE
 No route available
 
-This response indicates that routing or liquidity is temporarily unavailable rather than an application error.
+This response indicates that routing or liquidity is temporarily unavailable on Arc Testnet rather than an application error.
 
-ARCora is designed to recover gracefully from these situations and is ready once routes become available again.
-
+ARCora implements retry and recovery mechanisms and is designed to gracefully handle these situations. Once routes become available again, swaps can proceed normally.
 
 ---
 
