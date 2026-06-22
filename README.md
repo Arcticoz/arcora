@@ -145,6 +145,7 @@ ARCora is deployed on Vercel.
 
 # Current Development Status
 
+
 Circle Swap Kit integration has been completed successfully.
 
 During development, Arc Testnet may occasionally return:
@@ -152,9 +153,10 @@ During development, Arc Testnet may occasionally return:
 INPUT_UNSUPPORTED_ROUTE
 No route available
 
-This response indicates that routing or liquidity is temporarily unavailable on Arc Testnet rather than an application error.
+This response indicates that routing or liquidity is temporarily unavailable rather than an application error.
 
-ARCora implements retry and recovery mechanisms and is designed to gracefully handle these situations. Once routes become available again, swaps can proceed normally.
+ARCora implements recovery mechanisms and is designed to gracefully handle temporary infrastructure conditions while remaining ready once routes become available again.
+
 
 ---
 
