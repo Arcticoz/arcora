@@ -115,7 +115,7 @@ KIT_KEY=KIT_KEY:your_key_id:your_key_secret
 
 
 # NFTS
-<img width="891" height="837" alt="Screenshot 2026-06-18 074129" src="https://github.com/user-attachments/assets/86c6d209-655c-4bf6-a8e5-5b2a761edd29" />
+<img width="891" height="904" alt="Screenshot 2026-06-22 224602" src="https://github.com/user-attachments/assets/e8ea4851-57d0-472f-a120-a376474014ca" />
 
 
 
