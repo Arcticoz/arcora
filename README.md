@@ -3,9 +3,7 @@
 ### Swap. Mint. Own.
 https://arcora-opal.vercel.app/
 
-ARCora is a modern Web3 dashboard built with Next.js, TypeScript, Tailwind CSS, Wagmi, RainbowKit, and Circle Web3 Services.
-
-Designed with a premium UI inspired by Uniswap and Magic Eden, ARCora provides a seamless experience for managing assets, swapping stablecoins, bridging assets across chains, and collecting NFTs.
+ARCora is a modern Web3 application built on Arc Testnet, designed to provide a seamless experience for managing stablecoins and NFTs. Powered by Circle App Kit, ARCora combines swapping, transferring, bridging, and NFT utilities into a single interface.
 
 ---
 
@@ -24,11 +22,21 @@ Designed with a premium UI inspired by Uniswap and Magic Eden, ARCora provides a
 * NFT holdings
 * Total assets overview
 
-### Token Swap
+### Send Stablecoins
+Powered by Circle App Kit Browser Wallet
+* Wallet-to-wallet transfers
+* USDC transfers on Arc Testnet
+* Transaction estimation
+* MetaMask and EIP-6963 compatible wallets
+* ArcScan transaction verification
 
-* Swap between USDC and EURC
-* Powered by Circle Developer Controlled Wallets
+### Token Swap
+Powered by Circle App Kit
+* USDC ⇄ EURC swaps
+* Quote estimation
+* Slippage settings
 * Transaction history
+* ArcScan explorer links
 
 ## Cross-Chain Bridge
 
@@ -55,17 +63,35 @@ Designed with a premium UI inspired by Uniswap and Magic Eden, ARCora provides a
 
 ## Tech Stack
 
-* Next.js 15
+# Frontend
+* Next.js 16
+* React 19
 * TypeScript
-* Tailwind CSS
+* TailwindCSS
+# Web3
 * Wagmi
-* RainbowKit
 * Viem
-* Circle AppKit
-* Circle Swap Kit
-* Circle Bridge Kit
-* Circle Web3 Services
-* Vercel
+* RainbowKit
+# Circle Ecosystem
+* @circle-fin/app-kit
+* @circle-fin/adapter-viem-v2
+# Additional Libraries
+* TanStack Query
+* Sonner
+* Recharts
+* Lucide React
+
+---
+
+## Architecture
+ARCora
+│
+├── Dashboard
+├── NFTs
+├── Swap
+├── Send
+├── Bridge
+└── Portfolio
 
 ---
 
@@ -115,6 +141,7 @@ KIT_KEY=KIT_KEY:your_key_id:your_key_secret
 
 
 # SEND
+<img width="1337" height="695" alt="image" src="https://github.com/user-attachments/assets/7415ccd6-97cc-471d-aa21-9beb47aeb1a0" />
 
 
 
