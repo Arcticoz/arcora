@@ -129,10 +129,10 @@ export default function ConnectWallet() {
               </Link>
 
               <Link
-                href="/nfts"
-                className={navClass("/nfts")}
+                href="/send"
+                className={navClass("/send")}
               >
-                NFTs
+                Send
               </Link>
 
               <Link
@@ -147,6 +147,13 @@ export default function ConnectWallet() {
                 className={navClass("/bridge")}
               >
                 Bridge
+              </Link>
+
+              <Link
+                href="/nfts"
+                className={navClass("/nfts")}
+              >
+                NFTs
               </Link>
 
               <Link
