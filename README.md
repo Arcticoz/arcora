@@ -123,33 +123,33 @@ KIT_KEY=KIT_KEY:your_key_id:your_key_secret
 ---
 
 ## Screenshots
-# DASHBOARD
+## DASHBOARD
 <img width="1343" height="808" alt="Screenshot 2026-06-22 212336" src="https://github.com/user-attachments/assets/1ae2a33c-dcea-47ed-9723-09c01170e2d2" />
 
 
 
-# SEND
+## SEND
 <img width="1337" height="695" alt="image" src="https://github.com/user-attachments/assets/7415ccd6-97cc-471d-aa21-9beb47aeb1a0" />
 
 
 
 
-# SWAP
+## SWAP
 <img width="1599" height="926" alt="Screenshot 2026-06-22 145125" src="https://github.com/user-attachments/assets/e2bfdf85-0d50-422c-908f-80b7c8b75173" />
 
 
 
-# BRIDGE
+## BRIDGE
 <img width="1187" height="792" alt="Screenshot 2026-06-18 074302" src="https://github.com/user-attachments/assets/ce5fd9fb-8733-4148-a4d7-44b6fd77e4c5" />
 
 
 
-# NFTS
+## NFTS
 <img width="891" height="904" alt="Screenshot 2026-06-22 224602" src="https://github.com/user-attachments/assets/e8ea4851-57d0-472f-a120-a376474014ca" />
 
 
 
-# PORTFOLIO
+## PORTFOLIO
 <img width="878" height="862" alt="Screenshot 2026-06-18 074346" src="https://github.com/user-attachments/assets/c3f3639e-1653-4d3d-b0b9-a48150401e45" />
 
 
