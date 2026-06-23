@@ -83,18 +83,6 @@ Powered by Circle App Kit
 
 ---
 
-## Architecture
-ARCora
-│
-├── Dashboard
-├── NFTs
-├── Swap
-├── Send
-├── Bridge
-└── Portfolio
-
----
-
 ## Installation
 
 Clone the repository:
