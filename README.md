@@ -187,5 +187,7 @@ MIT License
 ---
 
 Built with ❤️ using Next.js and Circle Web3 Services.
+
+---
 https://x.com/forbyuu
-t.me/@timer28
+t.me/timer28
