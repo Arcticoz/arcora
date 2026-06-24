@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { CHAINS } from "@/constants/chains";
+import { useBridge } from "@/hooks/useBridge";
 
 
 export default function BridgeCard() {
+  
 
   const [amount, setAmount] =
     useState("1");
@@ -18,44 +20,22 @@ export default function BridgeCard() {
 
   const toChain =
     CHAINS.ARC_TESTNET;
-
-  async function bridge() {
+  
+  const {
+  bridge: executeBridge
+  } = useBridge();
+  async function bridgeHandler() {
 
     try {
 
       setLoading(true);
 
-      const response =
-        await fetch(
-          "/api/bridge",
-          {
-
-            method: "POST",
-
-            headers: {
-
-              "Content-Type":
-                "application/json"
-
-            },
-
-            body:
-
-              JSON.stringify({
-
-                amount,
-
-                fromChain,
-
-                toChain
-
-              })
-
-          }
-        );
-
-      const data =
-        await response.json();
+        const data =
+          await executeBridge(
+            amount,
+            fromChain,
+            toChain
+          );
 
       if (data.success) {
 
@@ -86,29 +66,9 @@ export default function BridgeCard() {
             new Date()
               .toLocaleString(),
 
-          txHash:
+          txHash: "",
 
-            data.result?.txHash
-
-            ??
-
-            data.result?.transactionHash
-
-            ??
-
-            data.result?.sourceTxHash
-
-            ??
-
-            "",
-
-          explorerUrl:
-
-            data.result?.explorerUrl
-
-            ??
-
-            "",
+          explorerUrl: "",
 
           status:
 
@@ -324,8 +284,7 @@ export default function BridgeCard() {
 
       <button
 
-        onClick={bridge}
-
+        onClick={bridgeHandler}
         disabled={loading}
 
         className="
