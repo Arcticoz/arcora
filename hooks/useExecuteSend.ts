@@ -15,7 +15,7 @@ from "@/lib/send/browserWallet";
 
 const kit =
   new AppKit();
-
+  
 export function useExecuteSend() {
 
   async function executeSend(

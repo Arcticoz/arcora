@@ -4,6 +4,11 @@ import {
   createViemAdapterFromProvider
 } from "@circle-fin/adapter-viem-v2";
 
+import {
+  BaseSepolia,
+  ArcTestnet
+} from "@circle-fin/app-kit/chains";
+
 type EIP6963ProviderInfo = {
 
   uuid: string;
@@ -198,7 +203,19 @@ export async function connectBrowserWallet() {
     await createViemAdapterFromProvider({
 
       provider:
-        selectedWallet.provider
+        selectedWallet.provider,
+
+      capabilities: {
+
+        supportedChains: [
+
+          BaseSepolia,
+
+          ArcTestnet
+
+        ]
+
+      }
 
     });
 
