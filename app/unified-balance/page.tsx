@@ -1,6 +1,7 @@
 import ConnectWallet from "@/components/ConnectWallet";
 import UnifiedBalanceCard from "@/components/UnifiedBalanceCard";
 import Footer from "@/components/Footer";
+import UnifiedBalanceHistory from "@/components/UnifiedBalanceHistory";
 
 export default function UnifiedBalancePage() {
   return (
@@ -33,7 +34,10 @@ export default function UnifiedBalancePage() {
 
         </section>
 
-        <UnifiedBalanceCard />
+        <UnifiedBalanceCard/>
+
+        <UnifiedBalanceHistory/>
+
 
       </div>
 

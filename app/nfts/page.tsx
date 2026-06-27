@@ -22,52 +22,10 @@ export default function NFTsPage() {
         mx-auto
         px-8
         xl:px-16
-        py-10
+        py-25
         space-y-16
         "
       >
-
-        {/* Hero */}
-
-        <section
-          className="
-          bg-zinc-900/70
-          border
-          border-white/10
-          rounded-[40px]
-          p-10
-          backdrop-blur-xl
-          shadow-2xl
-          "
-        >
-
-          <h1
-            className="
-            text-5xl
-            font-black
-            bg-linear-to-r
-            from-purple-400
-            via-pink-500
-            to-blue-500
-            text-transparent
-            bg-clip-text
-            "
-          >
-            ARCora Early Access Badge
-          </h1>
-
-          <p
-            className="
-            text-zinc-400
-            text-xl
-            mt-5
-            "
-          >
-            Mint and manage your Genesis Collection.
-          </p>
-
-        </section>
-
 
         {/* NFT Collection */}
 

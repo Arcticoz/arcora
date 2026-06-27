@@ -26,49 +26,6 @@ export default function SwapPage() {
         "
       >
 
-        {/* Hero */}
-
-        <section
-          className="
-          max-w-5xl
-          mx-auto
-          bg-zinc-900/70
-          border
-          border-white/10
-          rounded-4xl
-          p-8
-          backdrop-blur-xl
-          shadow-2xl
-          "
-        >
-
-          <h1
-            className="
-            text-5xl
-            font-black
-            bg-linear-to-r
-            from-purple-400
-            via-pink-500
-            to-blue-500
-            text-transparent
-            bg-clip-text
-            "
-          >
-            Swap
-          </h1>
-
-          <p
-            className="
-            text-zinc-400
-            mt-3
-            "
-          >
-            Instantly swap USDC and EURC on Arc Testnet.
-          </p>
-
-        </section>
-
-
         {/* Swap Card */}
 
 <section

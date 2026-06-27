@@ -3,6 +3,7 @@
 import { AppKit } from "@circle-fin/app-kit";
 import { connectBrowserWallet } from "@/lib/send/browserWallet";
 import { CHAINS } from "@/constants/chains";
+import { saveHistory } from "@/lib/history/unifiedBalanceHistory";
 
 const kit = new AppKit();
 
@@ -46,6 +47,34 @@ export function useUnifiedBalance() {
             "USDC"
 
         });
+
+      saveHistory({
+
+      type:
+
+      "deposit",
+
+      amount,
+
+      chain:
+
+      CHAINS.BASE_SEPOLIA,
+
+      txHash:
+
+      result.txHash ??
+
+      "",
+
+      explorerUrl:
+
+      "",
+
+      createdAt:
+
+      Date.now()
+
+      });
 
       return {
 
@@ -225,6 +254,123 @@ export function useUnifiedBalance() {
   }
 
 }
+  async function spend(
+    amount: string
+  ) {
+
+    try {
+
+      const {
+
+        adapter,
+
+        connectedAddress
+
+      } = await connectBrowserWallet();
+
+      const result =
+
+        await kit.unifiedBalance.spend({
+
+          from: {
+
+            adapter,
+
+            allocations: {
+
+              amount,
+
+              chain:
+                CHAINS.BASE_SEPOLIA
+
+            }
+
+          },
+
+          to: {
+
+            adapter,
+
+            chain:
+              CHAINS.ARC_TESTNET,
+
+            recipientAddress:
+              connectedAddress
+
+          },
+
+          amount,
+
+          token:
+            "USDC"
+
+        });
+
+      console.log("Spend:", result);
+
+      saveHistory({
+
+      type:
+
+      "spend",
+
+      amount,
+
+      chain:
+
+      result.destinationChain,
+
+      txHash:
+
+      result.txHash,
+
+      explorerUrl:
+
+      result.explorerUrl,
+
+      transferId:
+
+      result.transferId,
+
+      recipient:
+
+      result.recipientAddress,
+
+      createdAt:
+
+      Date.now()
+
+      });
+
+      return {
+
+        success: true,
+
+        result
+
+      };
+
+    }
+
+    catch (error: any) {
+
+      console.error(error);
+
+      return {
+
+        success: false,
+
+        message:
+
+          error?.message ??
+
+          "Spend failed"
+
+      };
+
+    }
+
+  }
 
   async function getSupportedChains() {
 
@@ -276,7 +422,9 @@ export function useUnifiedBalance() {
 
     getSupportedChains,
 
-    estimateSpend
+    estimateSpend,
+
+    spend
 
   };
 

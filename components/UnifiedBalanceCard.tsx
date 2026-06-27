@@ -1,16 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useUnifiedBalance } from "@/hooks/useUnifiedBalance";
+
 
 export default function UnifiedBalanceCard() {
 
   const [amount, setAmount] =
-    useState("1");
+  useState("1");
 
   const [loading, setLoading] =
-    useState(false);
+  useState(false);
+
+  const [balance, setBalance] =
+  useState<any>(null);
+
+  const [estimateResult, setEstimateResult] =
+  useState<any>(null);
+
+  const [spendResult, setSpendResult] =
+  useState<any>(null);
 
     const {
 
@@ -18,7 +28,9 @@ export default function UnifiedBalanceCard() {
 
     getBalances,
 
-    estimateSpend
+    estimateSpend,
+    
+    spend
 
     }= useUnifiedBalance();
 
@@ -35,12 +47,13 @@ export default function UnifiedBalanceCard() {
 
       if (data.success) {
 
+        await refreshBalance();
+
         toast.success(
-          "Deposit success"
+          "Deposit Success"
         );
 
       }
-
       else {
 
         toast.error(
@@ -86,18 +99,23 @@ export default function UnifiedBalanceCard() {
 
         if (
 
-        data.success &&
+            data.success &&
 
-        data.balances
+            data.balances
 
         ) {
 
-        toast.success(
+            setBalance(
 
-            `Confirmed: ${data.balances.totalConfirmedBalance}
-    Pending: ${data.balances.totalPendingBalance}`
+                data.balances
 
-        );
+            );
+
+            toast.success(
+
+                "Unified Balance Loaded"
+
+            );
 
         }
 
@@ -137,6 +155,28 @@ export default function UnifiedBalanceCard() {
 
     }
 
+  async function refreshBalance() {
+
+    const data = await getBalances();
+
+    if (
+
+      data.success &&
+
+      data.balances
+
+    ) {
+
+      setBalance(
+
+        data.balances
+
+      );
+
+    }
+
+  }
+
   async function handleEstimateSpend() {
 
   try {
@@ -155,15 +195,21 @@ export default function UnifiedBalanceCard() {
 
     if (
 
-      data.success
+        data.success
 
     ) {
 
-      toast.success(
+        setEstimateResult(
 
-        "Estimate Success"
+            data.estimate
 
-      );
+        );
+
+        toast.success(
+
+            "Estimate Success"
+
+        );
 
     }
 
@@ -201,6 +247,79 @@ export default function UnifiedBalanceCard() {
 
 }
 
+  async function handleSpend() {
+
+  try {
+
+    setLoading(true);
+
+    const data =
+
+      await spend(amount);
+
+    console.log(data);
+
+      if (
+
+        data.success
+
+      ) {
+
+        setSpendResult(
+
+          data.result
+
+        );
+
+        await refreshBalance();
+
+        toast.success(
+
+          "Spend Success"
+
+        );
+
+      }
+
+    else {
+
+      toast.error(
+
+        data.message
+
+      );
+
+    }
+
+  }
+
+  catch (error: any) {
+
+    console.error(error);
+
+    toast.error(
+
+      error?.message ??
+
+      "Spend failed"
+
+    );
+
+  }
+
+  finally {
+
+    setLoading(false);
+
+  }
+
+}
+  useEffect(() => {
+
+   refreshBalance();
+
+  }, []);
+
   return (
 
     <section
@@ -224,6 +343,28 @@ export default function UnifiedBalanceCard() {
       >
         Unified Balance
       </h2>
+
+      {loading && (
+
+      <div
+
+      className="
+      mb-6
+      rounded-2xl
+      bg-zinc-800
+      p-4
+      text-center
+      text-zinc-400
+      animate-pulse
+      "
+
+      >
+
+      Loading Unified Balance...
+
+      </div>
+
+      )}
 
       <div
         className="
@@ -357,28 +498,255 @@ export default function UnifiedBalanceCard() {
 
       <button
 
-  onClick={handleEstimateSpend}
+        onClick={handleEstimateSpend}
 
-  disabled={loading}
+        disabled={loading}
 
-  className="
-  w-full
-  mt-4
-  py-4
-  rounded-full
-  text-lg
-  font-bold
-  bg-emerald-600
-  hover:bg-emerald-500
-  duration-300
-  disabled:opacity-50
-  "
+        className="
+        w-full
+        mt-4
+        py-4
+        rounded-full
+        text-lg
+        font-bold
+        bg-emerald-600
+        hover:bg-emerald-500
+        duration-300
+        disabled:opacity-50
+        "
 
->
+      >
 
-  Estimate Spend
+        Estimate Spend
 
-</button>
+      </button>
+
+      <button
+
+        onClick={handleSpend}
+
+        disabled={loading}
+
+        className="
+        w-full
+        mt-4
+        py-4
+        rounded-full
+        text-lg
+        font-bold
+        bg-blue-600
+        hover:bg-blue-500
+        duration-300
+        disabled:opacity-50
+        "
+
+      >
+
+        Spend to Arc
+
+      </button>
+
+      {balance && (
+
+        <div
+
+        className="
+
+        mt-8
+
+        rounded-3xl
+
+        bg-zinc-800
+
+        p-6
+
+        "
+
+        >
+
+        <h3
+
+        className="
+
+        font-bold
+
+        text-xl
+
+        mb-4
+
+        "
+
+        >
+
+        Unified Balance
+
+        </h3>
+
+        <div className="flex justify-between">
+
+        <span>
+
+        Confirmed
+
+        </span>
+
+        <span className="font-bold">
+
+        {
+
+        balance.totalConfirmedBalance
+
+        }
+
+        USDC
+
+        </span>
+
+        </div>
+
+        <div
+
+        className="
+
+        flex
+
+        justify-between
+
+        mt-3
+
+        "
+
+        >
+
+        <span>
+
+        Pending
+
+        </span>
+
+        <span className="font-bold">
+
+        {
+
+        balance.totalPendingBalance
+
+        }
+
+        USDC
+
+        </span>
+
+        </div>
+
+        </div>
+
+        )}
+
+
+      {estimateResult && (
+
+      <div
+        className="
+        mt-6
+        rounded-3xl
+        bg-zinc-800
+        p-6
+        "
+      >
+
+        <h3
+          className="
+          font-bold
+          text-xl
+          mb-4
+          "
+        >
+          Estimate
+        </h3>
+
+        <pre
+          className="
+          text-xs
+          overflow-auto
+          "
+        >
+          {JSON.stringify(estimateResult, null, 2)}
+        </pre>
+
+      </div>
+
+    )}
+
+    {spendResult && (
+
+    <div
+
+    className="
+    mt-6
+    rounded-3xl
+    bg-zinc-800
+    p-6
+    "
+
+    >
+
+    <h3>
+
+    Last Spend
+
+    </h3>
+
+    <p>
+
+    Destination
+
+    </p>
+
+    <p>
+
+    {spendResult.destinationChain}
+
+    </p>
+
+    <p>
+
+    Recipient
+
+    </p>
+
+    <p>
+
+    {spendResult.recipientAddress}
+
+    </p>
+
+    <p>
+
+    Tx Hash
+
+    </p>
+
+    <p>
+
+    {spendResult.txHash}
+
+    </p>
+
+    <a
+
+    href={spendResult.explorerUrl}
+
+    target="_blank"
+
+    >
+
+    View on ArcScan
+
+    </a>
+
+    </div>
+
+    )}
 
 
     </section>

@@ -153,7 +153,7 @@ export default function ConnectWallet() {
                 href="/nfts"
                 className={navClass("/nfts")}
               >
-                NFTs
+                Mint Badge
               </Link>
 
               <Link
