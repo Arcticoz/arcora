@@ -1,5 +1,4 @@
 import ConnectWallet from "@/components/ConnectWallet";
-import DashboardStats from "@/components/DashboardStats";
 import Footer from "@/components/Footer";
 
 
@@ -73,9 +72,6 @@ export default function Home() {
         {/* Dashboard */}
 
        
-
-        <DashboardStats />
-
 
 
         {/* Wallet */}

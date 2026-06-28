@@ -346,7 +346,7 @@ export default function NFTInfo() {
 
   >
 
-    Mint ARCora NFT
+    Mint
 
   </button>
 

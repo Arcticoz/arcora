@@ -258,7 +258,7 @@ export default function SendCard() {
 
             :
 
-            "Send Stablecoins"
+            "Send"
 
         }
 

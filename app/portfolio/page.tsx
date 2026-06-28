@@ -5,6 +5,7 @@ import AssetBreakdown from "@/components/AssetBreakdown";
 import PerformanceChart from "@/components/PerformanceChart";
 import ProfitLoss from "@/components/ProfitLoss";
 import TransactionHistory from "@/components/TransactionHistory";
+import DashboardStats from "@/components/DashboardStats";
 
 export default function PortfolioPage() {
 
@@ -30,46 +31,7 @@ export default function PortfolioPage() {
         "
       >
 
-        {/* Hero */}
-
-        <section
-          className="
-          bg-zinc-900/70
-          border
-          border-white/10
-          rounded-[40px]
-          p-10
-          backdrop-blur-xl
-          shadow-2xl
-          "
-        >
-
-          <h1
-            className="
-            text-6xl
-            font-black
-            bg-linear-to-r
-            from-purple-400
-            via-pink-500
-            to-blue-500
-            text-transparent
-            bg-clip-text
-            "
-          >
-            Portfolio
-          </h1>
-
-          <p
-            className="
-            text-zinc-400
-            text-xl
-            mt-5
-            "
-          >
-            Analyze your assets and performance.
-          </p>
-
-        </section>
+        <DashboardStats />
 
         <ProfitLoss />
 
